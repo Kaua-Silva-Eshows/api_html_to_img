@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const puppeteer = require("puppeteer");
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -12,17 +11,14 @@ app.use(bodyParser.text({ type: ["text/html", "text/plain"], limit: "20mb" }));
 app.post("/html-to-image", async (req, res) => {
   try {
     const html = typeof req.body === "string" ? req.body : req.body?.html;
-    if (!html) return res.status(400).json({ error: "HTML não fornecido" });
+if (!html || typeof html !== "string") {
+  return res.status(400).json({ error: "HTML inválido" });
+}
 
     console.log("📥 HTML recebido");
 
-    // Descobre o caminho real do Chrome
-    const { executablePath } = puppeteer;
-    console.log("🧭 Caminho do Chrome:", executablePath());
-
-    const browser = await puppeteer.launch({
-  executablePath: executablePath(),
-  headless: "new",
+   const browser = await puppeteer.launch({
+  headless: true,
   args: ["--no-sandbox", "--disable-setuid-sandbox"]
 });
 
