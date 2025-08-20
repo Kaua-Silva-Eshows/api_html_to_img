@@ -16,7 +16,11 @@ if (!html || typeof html !== "string") {
 }
 
     console.log("📥 HTML recebido");
-    console.log("Executable Path Default:", puppeteer.executablePath());
+    const fs = require("fs");
+    const path = require("path");
+    const puppeteerChromiumPath = path.join(__dirname, "node_modules", "puppeteer", ".local-chromium");
+    console.log("📂 Conteúdo de .local-chromium:");
+    fs.readdirSync(puppeteerChromiumPath).forEach(folder => console.log(" -", folder));
 
     const browser = await puppeteer.launch({
     headless: true,
