@@ -16,14 +16,11 @@ if (!html || typeof html !== "string") {
 }
 
     console.log("📥 HTML recebido");
+    console.log("Executable Path Default:", puppeteer.executablePath());
 
-  const browserFetcher = puppeteer.createBrowserFetcher();
-  const revisionInfo = browserFetcher.revisionInfo(puppeteer._preferredRevision);
-
-  const browser = await puppeteer.launch({
+    const browser = await puppeteer.launch({
     headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    executablePath: revisionInfo.executablePath
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
   });
 
 
