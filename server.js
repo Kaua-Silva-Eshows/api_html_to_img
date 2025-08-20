@@ -56,6 +56,16 @@ if (!html || typeof html !== "string") {
   }
 });
 
+app.get("/debug-chrome", (req, res) => {
+  const dir = path.join(__dirname, "node_modules/puppeteer/.local-chromium");
+  try {
+    const folders = fs.readdirSync(dir);
+    res.json({ chromiumFolders: folders });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
