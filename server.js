@@ -17,11 +17,14 @@ if (!html || typeof html !== "string") {
 
     console.log("📥 HTML recebido");
 
-   const browser = await puppeteer.launch({
-  headless: true,
-  args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  executablePath: process.env.CHROME_BIN || undefined
-});
+  const browserFetcher = puppeteer.createBrowserFetcher();
+  const revisionInfo = browserFetcher.revisionInfo(puppeteer._preferredRevision);
+
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    executablePath: revisionInfo.executablePath
+  });
 
 
     console.log("✅ Navegador iniciado");
