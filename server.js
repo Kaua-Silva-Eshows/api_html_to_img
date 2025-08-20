@@ -16,16 +16,25 @@ if (!html || typeof html !== "string") {
 }
 
     console.log("📥 HTML recebido");
-    const fs = require("fs");
-    const path = require("path");
-    const puppeteerChromiumPath = path.join(__dirname, "node_modules", "puppeteer", ".local-chromium");
-    console.log("📂 Conteúdo de .local-chromium:");
-    fs.readdirSync(puppeteerChromiumPath).forEach(folder => console.log(" -", folder));
+    // const fs = require("fs");
+    // const path = require("path");
+    // const puppeteerChromiumPath = path.join(__dirname, "node_modules", "puppeteer", ".local-chromium");
+    // console.log("📂 Conteúdo de .local-chromium:");
+    // fs.readdirSync(puppeteerChromiumPath).forEach(folder => console.log(" -", folder));
+    const { execSync } = require("child_process");
+    try {
+      const systemChrome = execSync("which google-chrome").toString().trim();
+      console.log("📌 Chrome do sistema encontrado em:", systemChrome);
+    } catch (err) {
+      console.log("⚠️ Chrome do sistema não encontrado");
+    }
+    // --------------------------
 
     const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
-  });
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      executablePath: process.env.CHROME_PATH || "/usr/bin/google-chrome"
+    });
 
 
     console.log("✅ Navegador iniciado");
