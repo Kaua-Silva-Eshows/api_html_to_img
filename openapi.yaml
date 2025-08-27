@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: HTML → PNG / XLS API
+  version: 1.0.0
+  description: |
+    API para converter HTML em PNG ou XLS.
+
+    **Instruções de uso:**
+    1. Inicie o servidor:
+       ```bash
+       npm run server.js
+       ```
+
+    2. Execute os exemplos abaixo no terminal para testar os endpoints:
+
+    **PowerShell - gerar PNG:**
+    ```powershell
+    $html = @"
+    <h1>Olá Mundo</h1>
+    <p>Exemplo de captura em PNG</p>
+    "@
+    Invoke-WebRequest -Uri "http://localhost:3000/html-to-image" `
+      -Method POST `
+      -Body $html `
+      -ContentType "text/html" `
+      -OutFile "pagina.png"
+    ```
+
+    **PowerShell - gerar XLS:**
+    ```powershell
+    $html = @"
+    <table>
+      <tr><th>Nome</th><th>Valor</th></tr>
+      <tr><td>Produto A</td><td>100</td></tr>
+    </table>
+    "@
+    Invoke-WebRequest -Uri "http://localhost:3000/html-to-xls" `
+      -Method POST `
+      -Body $html `
+      -ContentType "text/html" `
+      -OutFile "tabela.xls"
+    ```
+
+    **cURL - gerar PNG:**
+    ```bash
+    curl -X POST "http://localhost:3000/html-to-image" \
+      -H "Content-Type: text/html" \
+      -d '<h1>Olá Mundo</h1><p>Exemplo de captura em PNG</p>' \
+      --output pagina.png
+    ```
+
+    **cURL - gerar XLS:**
+    ```bash
+    curl -X POST "http://localhost:3000/html-to-xls" \
+      -H "Content-Type: text/html" \
+      -d '<table><tr><th>Nome</th><th>Valor</th></tr><tr><td>Produto A</td><td>100</td></tr></table>' \
+      --output tabela.xls
+    ```
+
+paths:
+  /html-to-image:
+    post:
+      summary: Converte HTML em PNG
+      description: Envie um HTML válido para receber uma captura PNG da página.
+      requestBody:
+        required: true
+        content:
+          text/html:
+            schema:
+              type: string
+              example: |
+                <h1>Olá Mundo</h1>
+                <p>Exemplo de captura em PNG</p>
+      responses:
+        '200':
+          description: PNG gerado com sucesso
+        '400':
+          description: HTML inválido
+        '500':
+          description: Erro interno
+  /html-to-xls:
+    post:
+      summary: Converte HTML em XLS
+      description: Envie um HTML de tabela válido para receber um arquivo XLS.
+      requestBody:
+        required: true
+        content:
+          text/html:
+            schema:
+              type: string
+              example: |
+                <table>
+                  <tr><th>Nome</th><th>Valor</th></tr>
+                  <tr><td>Produto A</td><td>100</td></tr>
+                </table>
+      responses:
+        '200':
+          description: XLS gerado com sucesso
+        '400':
+          description: HTML inválido
+        '500':
+          description: Erro interno
