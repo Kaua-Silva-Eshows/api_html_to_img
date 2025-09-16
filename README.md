@@ -10,6 +10,15 @@ A aplicação foi construída em **Node.js** e segue o padrão **REST**, com a d
 - [Swagger UI](https://swagger.io/tools/swagger-ui/) (via `openapi.yaml`)
 
 ---
+## Kubernets
+
+Processo para manutenção/ atualização do backend
+docker build -t service-send-image-from-operations -f Dockerfile.prod . docker build -t eshows/service-send-image-from-operations -f Dockerfile.prod . docker push eshows/service-send-image-from-operations
+
+kubectl apply -f k8s/app.yaml
+
+logs
+kubectl logs
 
 ## 📂 Estrutura do projeto
 ├── server.js # Arquivo principal do servidor
