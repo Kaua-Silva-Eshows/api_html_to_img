@@ -1,4 +1,4 @@
-# 📦 API HTML → PNG / XLS API
+# 📦 API HTML → XLS API
 
 A aplicação foi construída em **Node.js** e segue o padrão **REST**, com a documentação em formato **OpenAPI (Swagger)**.
 
@@ -13,7 +13,7 @@ A aplicação foi construída em **Node.js** e segue o padrão **REST**, com a d
 ## Kubernets
 
 Processo para manutenção/ atualização do backend
-docker build -t service-send-image-from-operations -f Dockerfile.prod . docker build -t eshows/service-send-image-from-operations -f Dockerfile.prod . docker push eshows/service-send-image-from-operations
+docker build -t eshows/html-to-image-api:latestv1 -f Dockerfile.prod . docker build -t eshows/html-to-image-api:latestv1 -f Dockerfile.prod . docker push eshows/html-to-image-api:latestv1
 
 kubectl apply -f k8s/app.yaml
 

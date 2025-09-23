@@ -1,14 +1,13 @@
 {
   "name": "projeto_node",
   "version": "1.0.0",
-  "description": "API para gerar imagens a partir de HTML com Puppeteer",
+  "description": "API para gerar xls a partir de HTML",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [
-    "puppeteer",
     "html",
     "screenshot",
     "express"
