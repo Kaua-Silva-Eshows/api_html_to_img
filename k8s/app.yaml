@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: service-send-image-from-operations
+  name: html-to-image-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: service-send-image-from-operations
+      app: html-to-image-api
   template:
     metadata:
       labels:
-        app: service-send-image-from-operations
+        app: html-to-image-api
     spec:
       containers:
-        - name: service-send-image-from-operations
-          image: eshows/service-send-image-from-operations:latest
+        - name: html-to-image-api
+          image: eshows/html-to-image-api:latestv1
           ports:
-            - containerPort: 7000
+            - containerPort: 3003
           resources:
             requests:
               memory: "256Mi"
@@ -26,19 +26,21 @@ spec:
               cpu: "200m"
           env:
             - name: PORT
-              value: "7000"
-
+              value: "3003"
             - name: teste
-              value: "https:/picdhaossssssss"
+              value: "https:/picdhaosssssssssss"
+      imagePullSecrets:
+        - name: my-dockerhub-secret
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-send-image-from-operations-service
+  name: html-to-image-api-service
 spec:
-  ports:
-    - port: 7000
   selector:
-    app: service-send-image-from-operations
+    app: html-to-image-api
+  ports:
+    - port: 3003
+      targetPort: 3003
   type: ClusterIP
